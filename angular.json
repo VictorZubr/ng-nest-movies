@@ -60,6 +60,20 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "mock": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/app/interceptors/interceptors.ts",
+                  "with": "src/app/interceptors/interceptors.mock.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -72,6 +86,9 @@
             },
             "development": {
               "browserTarget": "angular.io-example:build:development"
+            },
+            "mock": {
+              "browserTarget": "angular.io-example:build:mock"
             }
           },
           "defaultConfiguration": "development"
