@@ -9,9 +9,11 @@ import { interceptors } from './interceptors/interceptors';
 import { MoviesListComponent } from './components/movies-list/movies-list.component';
 import { MovieDetailComponent } from './components/movie-detail/movie-detail.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { MovieComponent } from './components/movie/movie.component';
+import { CardComponent } from './components/card/card.component';
 
 @NgModule({
-  declarations: [ AppComponent, MoviesListComponent, MovieDetailComponent, ErrorPageComponent ],
+  declarations: [ AppComponent, MoviesListComponent, MovieDetailComponent, ErrorPageComponent, MovieComponent, CardComponent ],
   imports: [ AppRoutingModule, BrowserModule, HttpClientModule, ReactiveFormsModule ],
   bootstrap: [ AppComponent ],
   providers: [ interceptors ]

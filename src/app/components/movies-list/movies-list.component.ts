@@ -17,6 +17,10 @@ export class MoviesListComponent implements OnInit, OnDestroy {
   searchControl = new FormControl('');
   movies$!: Observable<Movie[]>;
   private destroy$ = new Subject<void>();
+  private refresh$ = new Subject<void>();
+
+  isAdding = false;
+  newMovieControl = new FormControl('');
 
   constructor(
     private route: ActivatedRoute,
@@ -30,25 +34,79 @@ export class MoviesListComponent implements OnInit, OnDestroy {
       this.searchControl.setValue(search, { emitEvent: false });
     });
 
-    this.movies$ = this.searchControl.valueChanges.pipe(
-      startWith(this.searchControl.value || ''),
-      debounceTime(500),
-      map(value => (value || '').trim()),
-      distinctUntilChanged(),
-      filter(value => value.length === 0 || value.length >= 3),
-      tap(value => {
-        this.router.navigate([], {
-          relativeTo: this.route,
-          queryParams: { search: value || null },
-          queryParamsHandling: 'merge'
-        });
-      }),
-      switchMap(value => this.moviesService.getMovies(value))
+    this.movies$ = this.refresh$.pipe(
+      startWith(void 0),
+      switchMap(() => this.searchControl.valueChanges.pipe(
+        startWith(this.searchControl.value || ''),
+        debounceTime(500),
+        map(value => (value || '').trim()),
+        distinctUntilChanged(),
+        filter(value => value.length === 0 || value.length >= 3),
+        tap(value => {
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { search: value || null },
+            queryParamsHandling: 'merge'
+          });
+        }),
+        switchMap(value => this.moviesService.getMovies(value))
+      ))
     );
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  onDelete(movie: Movie): void {
+    this.moviesService.deleteMovie(movie.id).subscribe({
+      next: () => {
+        this.refresh$.next();
+      },
+      error: (err) => {
+        console.error('Ошибка при удалении фильма:', err);
+      }
+    });
+  }
+
+  onStatusChange(movie: Movie): void {
+    movie.isOnline = !movie.isOnline;
+
+    this.moviesService.updateMovie(movie).pipe(takeUntil(this.destroy$)).subscribe({
+      next: () => {
+        this.refresh$.next();
+      },
+      error: (err) => {
+        console.error('Ошибка при обновлении статуса фильма:', err);
+      }
+    });
+  }
+
+  startAdding(): void {
+    this.isAdding = true;
+    this.newMovieControl.reset();
+  }
+
+  cancelAdding(): void {
+    this.isAdding = false;
+  }
+
+  saveMovie(): void {
+    const name = this.newMovieControl.value?.trim();
+    if (!name) {
+      return;
+    }
+
+    this.moviesService.addMovie(name).pipe(takeUntil(this.destroy$)).subscribe({
+      next: () => {
+        this.isAdding = false;
+        this.newMovieControl.reset();
+        this.refresh$.next();
+      },
+      error: (err) => {
+        console.error('Ошибка при добавлении фильма:', err);
+      }
+    });
   }
 }

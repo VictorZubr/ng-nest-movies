@@ -1,7 +1,22 @@
 <input type="text" [formControl]="searchControl" placeholder="Поиск фильмов" />
 
-<div *ngIf="movies$ | async as movies">
-  <div *ngFor="let movie of movies">
-    {{ movie.name }}
-  </div>
+<button *ngIf="!isAdding" (click)="startAdding()">Add movie</button>
+
+<div *ngIf="isAdding" class="inline-form">
+  <input type="text" [formControl]="newMovieControl" placeholder="Enter movie name" />
+  <button (click)="saveMovie()">Save</button>
+  <button (click)="cancelAdding()">Cancel</button>
 </div>
+
+<ng-container *ngIf="movies$ | async as movies">
+  <div *ngFor="let movie of movies">
+    <app-movie
+      [movie]="movie"
+      (deleteMovie)="onDelete($event)"
+      (statusChange)="onStatusChange($event)">
+    </app-movie>
+
+  </div>
+</ng-container>
+
+

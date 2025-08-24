@@ -1,0 +1,18 @@
+<app-card [link]="[movie?.id]">
+  <div card-header>{{ movie?.name }}</div>
+
+  <div card-body>
+    <label>
+      Онлайн:
+      <input
+        type="checkbox"
+        [checked]="movie?.isOnline"
+        (change)="toggleStatus(); $event.stopPropagation()"
+      />
+    </label>
+  </div>
+
+  <div card-actions>
+    <button (click)="delete(); $event.stopPropagation()">Удалить</button>
+  </div>
+</app-card>

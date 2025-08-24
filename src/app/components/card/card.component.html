@@ -1,0 +1,15 @@
+<div class="card">
+  <a [routerLink]="link" class="card-link">
+    <div class="card-header">
+      <ng-content select="[card-header]"></ng-content>
+    </div>
+  </a>
+
+  <div class="card-body">
+    <ng-content select="[card-body]"></ng-content>
+  </div>
+
+  <div class="card-actions">
+    <ng-content select="[card-actions]"></ng-content>
+  </div>
+</div>
