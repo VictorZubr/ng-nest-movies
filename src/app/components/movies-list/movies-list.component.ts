@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Observable, startWith, Subject, takeUntil } from 'rxjs';
@@ -10,7 +10,8 @@ import { Movie } from '../../types/types';
 @Component({
   selector: 'app-movies-list',
   templateUrl: './movies-list.component.html',
-  styleUrls: ['./movies-list.component.css']
+  styleUrls: ['./movies-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MoviesListComponent implements OnInit, OnDestroy {
   searchControl = new FormControl('');
