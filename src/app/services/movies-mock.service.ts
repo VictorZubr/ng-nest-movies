@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Movie } from '../types/types';
-import {Observable} from "rxjs";
 
 const INITIAL_MOVIES: Movie[] = [
   { id: 1, name: 'The Matrix', isOnline: true },
