@@ -1,1 +1,7 @@
-<p>movies-list works!</p>
+<input type="text" [formControl]="searchControl" placeholder="Поиск фильмов" />
+
+<div *ngIf="movies$ | async as movies">
+  <div *ngFor="let movie of movies">
+    {{ movie.name }}
+  </div>
+</div>

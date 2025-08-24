@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,7 +12,7 @@ import { ErrorPageComponent } from './components/error-page/error-page.component
 
 @NgModule({
   declarations: [ AppComponent, MoviesListComponent, MovieDetailComponent, ErrorPageComponent ],
-  imports: [ AppRoutingModule, BrowserModule, HttpClientModule ],
+  imports: [ AppRoutingModule, BrowserModule, HttpClientModule, ReactiveFormsModule ],
   bootstrap: [ AppComponent ],
   providers: [ interceptors ]
 })
