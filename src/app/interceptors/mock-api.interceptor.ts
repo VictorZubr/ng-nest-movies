@@ -3,9 +3,11 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor, HttpResponse
+  HttpInterceptor,
+  HttpResponse,
+  HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import {Observable, of, throwError} from 'rxjs';
 
 import { MoviesMockService } from '../services/movies-mock.service';
 import { Movie } from '../types/types';
@@ -31,8 +33,21 @@ export class MockApiInterceptor implements HttpInterceptor {
     }
 
     if (request.method === 'GET') {
+      if (id) {
+        const movie = this.moviesMockService.getMovieById(Number(id));
+        if (movie) {
+          return of(new HttpResponse({ body: movie }));
+        } else {
+          return throwError(() => new HttpErrorResponse({
+            status: 404,
+            statusText: 'Not Found',
+            url: request.url
+          }));
+        }
+      }
+
       const searchName = request.params.get('search') || '';
-      return of(new HttpResponse({ body: this.moviesMockService.getMovies(searchName)}));
+      return of(new HttpResponse({ status: 200, body: this.moviesMockService.getMovies(searchName) }));
     }
 
     if (request.method === 'POST') {

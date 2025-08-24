@@ -1,1 +1,15 @@
-<p>movie-detail works!</p>
+<header>
+  <nav>
+    <a (click)="goHome()" style="cursor:pointer; margin-right:15px;">Домой</a>
+    <a (click)="goBack()" style="cursor:pointer;">Назад</a>
+  </nav>
+</header>
+
+<div *ngIf="movie$ | async as movie">
+  <h2>{{ movie.name }}</h2>
+  <p>{{ movie.isOnline ? 'Онлайн' : 'Оффлайн'}}</p>
+</div>
+
+<div *ngIf="notFound">
+  <p>Такого фильма нет</p>
+</div>

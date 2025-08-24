@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Movie } from '../types/types';
+import {Observable} from "rxjs";
 
 const INITIAL_MOVIES: Movie[] = [
   { id: 1, name: 'The Matrix', isOnline: true },
@@ -85,5 +86,10 @@ export class MoviesMockService {
 
     const [deletedMovie] = this.movies.splice(index, 1);
     return deletedMovie;
+  }
+
+  getMovieById(id: number): Movie | null {
+    const movie = this.movies.find(m => m.id === id);
+    return movie ? { ...movie } : null;
   }
 }
