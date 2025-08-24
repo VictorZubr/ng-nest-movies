@@ -7,7 +7,7 @@ import { Movie } from '../types/types';
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class MoviesService {
 
   constructor(private http: HttpClient) { }
 
