@@ -71,8 +71,6 @@ export class MoviesListComponent implements OnInit, OnDestroy {
   }
 
   onStatusChange(movie: Movie): void {
-    movie.isOnline = !movie.isOnline;
-
     this.moviesService.updateMovie(movie).pipe(takeUntil(this.destroy$)).subscribe({
       next: () => {
         this.refresh$.next();
