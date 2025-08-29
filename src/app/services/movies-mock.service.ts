@@ -49,7 +49,7 @@ export class MoviesMockService {
 
   addMovie(name: string): Movie {
     if (!name.trim()) {
-      throw new Error('Movie name cannot be empty');
+      throw new Error('Имя файла не может быть пустым');
     }
 
     const newMovie: Movie = {
@@ -66,11 +66,11 @@ export class MoviesMockService {
     const index = this.movies.findIndex(m => m.id === movie.id);
 
     if (index === -1) {
-      throw new Error(`Movie with id ${movie.id} not found`);
+      throw new Error(`Фильм с id ${movie.id} не найден`);
     }
 
     if (!movie.name.trim()) {
-      throw new Error('Movie name cannot be empty');
+      throw new Error('Имя файла не может быть пустым');
     }
 
     this.movies[index] = { ...movie };
@@ -80,7 +80,7 @@ export class MoviesMockService {
     const index = this.movies.findIndex(movie => movie.id === id);
 
     if (index === -1) {
-      throw new Error(`Movie with id ${id} not found`);
+      throw new Error(`Фильм с id ${id} не найден`);
     }
 
     const [deletedMovie] = this.movies.splice(index, 1);

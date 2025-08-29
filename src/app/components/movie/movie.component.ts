@@ -20,7 +20,7 @@ export class MovieComponent{
 
   toggleStatus(): void {
     if (this.movie) {
-      this.movie.isOnline = !this.movie.isOnline; // переключаем
+      this.movie.isOnline = !this.movie.isOnline;
       this.statusChange.emit(this.movie);
     }
   }
