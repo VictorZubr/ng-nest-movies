@@ -11,7 +11,10 @@
     "build:mock": "ng build --configuration mock",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "start:backend": "cd nest && npm run start:dev",
+    "start:dev": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "build:backend": "cd nest && npm run build"
   },
   "private": true,
   "dependencies": {
@@ -34,6 +37,7 @@
     "@angular/compiler-cli": "^14.2.0",
     "@types/jasmine": "~4.0.0",
     "@types/node": "^16.11.35",
+    "concurrently": "^9.2.1",
     "copyfiles": "^2.4.1",
     "jasmine-core": "~4.3.0",
     "jasmine-marbles": "~0.9.2",
