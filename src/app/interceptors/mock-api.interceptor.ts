@@ -57,7 +57,7 @@ export class MockApiInterceptor implements HttpInterceptor {
 
     if (request.method === 'PUT') {
       const movie = request.body as Movie;
-      this.moviesMockService.updateMovie(movie);
+      this.moviesMockService.updateMovie(movie.id, movie);
       return of(new HttpResponse({body: movie}));
     }
 

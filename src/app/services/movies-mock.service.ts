@@ -62,11 +62,11 @@ export class MoviesMockService {
     return newMovie;
   }
 
-  updateMovie(movie: Movie): void {
-    const index = this.movies.findIndex(m => m.id === movie.id);
+  updateMovie(id: number, movie: Movie): Movie | null {
+    const index = this.movies.findIndex(m => m.id === id);
 
     if (index === -1) {
-      throw new Error(`Фильм с id ${movie.id} не найден`);
+      return null;
     }
 
     if (!movie.name.trim()) {
@@ -74,13 +74,15 @@ export class MoviesMockService {
     }
 
     this.movies[index] = { ...movie };
+
+    return movie;
   }
 
-  deleteMovie(id: number): Movie {
+  deleteMovie(id: number): Movie | null {
     const index = this.movies.findIndex(movie => movie.id === id);
 
     if (index === -1) {
-      throw new Error(`Фильм с id ${id} не найден`);
+      return null;
     }
 
     const [deletedMovie] = this.movies.splice(index, 1);

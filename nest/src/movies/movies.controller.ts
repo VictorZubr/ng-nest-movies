@@ -1,4 +1,4 @@
-import {Controller, Get, NotFoundException, Param, ParseIntPipe, Query} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query} from '@nestjs/common';
 import type {Movie} from "../../../src/app/types/types";
 import {MoviesService} from "./movies.service";
 
@@ -13,11 +13,21 @@ export class MoviesController {
 
   @Get(':id')
   getMovieById(@Param('id', ParseIntPipe) id: number): Movie {
-    const movie = this.moviesService.getMovieById(id);
-    console.log('# movie', movie)
-    if (!movie) {
-      throw new NotFoundException(`Movie with id ${id} not found`);
-    }
-    return movie;
+    return this.moviesService.getMovieById(id);
+  }
+
+  @Post()
+  addMovie(@Body('name') name: string): Movie {
+    return this.moviesService.addMovie(name);
+  }
+
+  @Put(':id')
+  updateMovie(@Param('id', ParseIntPipe) id: number, @Body() movieData: Movie): Movie {
+    return this.moviesService.updateMovie(id, movieData);
+  }
+
+  @Delete(':id')
+  deleteMovie(@Param('id', ParseIntPipe) id: number): Movie {
+    return this.moviesService.deleteMovie(id);
   }
 }
