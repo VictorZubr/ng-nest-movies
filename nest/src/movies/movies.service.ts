@@ -9,4 +9,8 @@ export class MoviesService {
   getMovies(search: string): Movie[] {
     return this.moviesMockService.getMovies(search);
   }
+
+  getMovieById(id: number): Movie | null {
+    return this.moviesMockService.getMovieById(id);
+  }
 }
