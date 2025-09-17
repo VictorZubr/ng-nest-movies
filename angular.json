@@ -91,6 +91,9 @@
               "browserTarget": "angular.io-example:build:mock"
             }
           },
+          "options": {
+            "proxyConfig": "src/proxy.conf.json"
+          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
