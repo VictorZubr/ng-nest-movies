@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start:frontend": "ng serve",
     "start:mock": "ng serve --configuration mock",
     "build": "ng build",
     "build:mock": "ng build --configuration mock",
