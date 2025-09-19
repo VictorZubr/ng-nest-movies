@@ -3,7 +3,7 @@
 <button *ngIf="!isAdding" (click)="startAdding()">Добавить фильм</button>
 
 <div *ngIf="isAdding" class="inline-form">
-  <input type="text" [formControl]="newMovieControl" placeholder="Введите имя файла" />
+  <input type="text" [formControl]="newMovieControl" placeholder="Введите имя фильма" />
   <button (click)="saveMovie()">Сохранить</button>
   <button (click)="cancelAdding()">Выйти</button>
 </div>
