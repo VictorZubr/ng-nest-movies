@@ -12,23 +12,24 @@ import {Observable, of, throwError} from 'rxjs';
 import { MoviesMockService } from '../services/movies-mock.service';
 import { Movie } from '../types/types';
 
+const API_PREFIX = '/api';
+
 @Injectable()
 export class MockApiInterceptor implements HttpInterceptor {
 
   constructor(private moviesMockService: MoviesMockService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-
-    const match = request.url.match(/^\/([^\/]+)(?:\/(\d+))?$/);
+    const match = request.url.match(new RegExp(`^${API_PREFIX}/([^/]+)(?:/(\\d+))?$`));
 
     if (!match) {
       return next.handle(request);
     }
 
-    const enyityName = match[1];
+    const entityName = match[1];
     const id = match[2];
 
-    if (enyityName !== 'movies') {
+    if (entityName !== 'movies') {
       return next.handle(request);
     }
 
